@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الإسلام | Islam</title>
+  <style>
+    :root {
+      --bg: #060c08;
+      --surface: #0c1710;
+      --surface-2: #112217;
+      --border: #1d3b27;
+      --green: #16a34a;
+      --green-bright: #22c55e;
+      --green-soft: rgba(34, 197, 94, 0.14);
+      --text: #f2fdf5;
+      --muted: #9bc7a9;
+      --danger: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #0e2416 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 84px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(6, 12, 8, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--green), #065f46);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: #fff;
+      font-size: 1rem;
+      box-shadow: 0 0 18px rgba(34, 197, 94, 0.25);
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-sub {
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+
+    .pill {
+      background: var(--green-soft);
+      color: var(--green-bright);
+      border: 1px solid var(--border);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    main {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--green-bright);
+    }
+
+    .card-text {
+      color: var(--text);
+      font-size: 0.94rem;
+      line-height: 1.65;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 10px 15px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: 0.15s ease;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--green-bright);
+    }
+
+    .btn-secondary {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--green-bright);
+    }
+
+    .video-frame-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #040805;
+      border: 1px solid var(--border);
+      margin-top: 10px;
+    }
+
+    .video-frame-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .fact-badge {
+      display: inline-block;
+      font-size: 0.74rem;
+      color: var(--green-bright);
+      background: var(--green-soft);
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: right;
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 9px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--green-bright);
+    }
+
+    .option-btn.correct {
+      background: rgba(34, 197, 94, 0.22);
+      border-color: var(--green-bright);
+      color: #dcfce7;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: var(--danger);
+      color: #fee2e2;
+    }
+
+    .explanation {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      background: var(--surface-2);
+      border-right: 3px solid var(--green-bright);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .tasbih-display {
+      text-align: center;
+      padding: 18px 10px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-top: 10px;
+    }
+
+    .tasbih-phrase {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .tasbih-count {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--green-bright);
+      line-height: 1.1;
+      margin: 8px 0;
+    }
+
+    .tap-circle {
+      width: 124px;
+      height: 124px;
+      border-radius: 50%;
+      margin: 14px auto 6px;
+      background: radial-gradient(circle at 30% 30%, var(--green-bright), #14532d);
+      color: #ffffff;
+      border: 3px solid rgba(134, 239, 172, 0.35);
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 10px 28px rgba(22, 163, 74, 0.32);
+      display: grid;
+      place-items: center;
+    }
+
+    .tap-circle:active {
+      transform: scale(0.95);
+    }
+
+    .tabs-switch {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .chip-btn {
+      flex: 1;
+      padding: 9px 10px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .chip-btn.active {
+      background: var(--green-soft);
+      color: var(--green-bright);
+      border-color: var(--green-bright);
+    }
+
+    .zekr-item {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px;
+      margin-bottom: 10px;
+    }
+
+    .zekr-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+      color: var(--green-bright);
+      font-weight: 700;
+    }
+
+    .zekr-body {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .zekr-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      background: rgba(7, 14, 9, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 6px 4px;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      padding: 8px 2px;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .nav-btn.active {
+      color: var(--green-bright);
+      background: var(--green-soft);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-wrap">
+      <div class="logo-box">إ</div>
+      <div>
+        <div class="brand-title">الإسلام | Islam</div>
+        <div class="brand-sub">ذكر ومعرفة وطمأنينة</div>
+      </div>
+    </div>
+    <span class="pill">نسخة محدثة</span>
+  </header>
+
+  <main>
+    <!-- 1. قسم القناة والروابط الثابتة -->
+    <section id="channel" class="page active">
+      <div class="card">
+        <div class="card-head">
+          <h2 class="card-title">القناة والمنصات الرسمية</h2>
+          <span class="pill">حسابات المالك</span>
+        </div>
+        <p class="muted">
+          تابع أحدث المقاطع والمنشورات عبر الحسابات الرسمية المثبتة للقناة.
+        </p>
+
+        <div class="btn-row">
+          <a id="ytBtn" class="btn btn-primary" href="#" target="_blank" rel="noopener noreferrer">
+            ▶ قناة يوتيوب
+          </a>
+          <a id="igBtn" class="btn btn-secondary" href="#" target="_blank" rel="noopener noreferrer">
+            ◎ حساب إنستغرام
+          </a>
+        </div>
+
+        <div id="videoContainer"></div>
+      </div>
+    </section>
+
+    <!-- 2. قسم المعلومات الدينية -->
+    <section id="facts" class="page">
+      <div class="card">
+        <div class="card-head">
+          <h2 class="card-title">معلومات دينية</h2>
+          <span id="factCounter" class="muted">1 / 1</span>
+        </div>
+        <span id="factCategory" class="fact-badge">فائدة</span>
+        <p id="factContent" class="card-text"></p>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="nextFact()">معلومة جديدة</button>
+          <button class="btn btn-secondary" onclick="shareFact()">مشاركة</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. قسم الاختبار المتنوع -->
+    <section id="quiz" class="page">
+      <div class="card">
+        <div class="card-head">
+          <h2 class="card-title">اختبر معلوماتك</h2>
+          <span id="scoreBadge" class="pill">النقاط: 0</span>
+        </div>
+        <div class="quiz-meta">
+          <span id="questionCategory">التصنيف: عام</span>
+          <span id="questionNumber">سؤال متنوع</span>
+        </div>
+        <p id="questionTitle" class="card-text" style="font-weight:700; margin-bottom:12px;"></p>
+        <div id="optionsContainer"></div>
+        <div id="explanationBox" class="explanation"></div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="pickRandomQuestion()">سؤال عشوائي آخر</button>
+          <button class="btn btn-secondary" onclick="resetScore()">تصفير النقاط</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. قسم المسبحة وأذكار الصباح والمساء -->
+    <section id="tasbih" class="page">
+      <div class="card">
+        <div class="card-head">
+          <h2 class="card-title">المسبحة الإلكترونية</h2>
+          <span id="tasbihGoalLabel" class="muted">الهدف: 33</span>
+        </div>
+
+        <label for="dhikrSelect" class="muted">اختر صيغة الذكر:</label>
+        <select id="dhikrSelect" onchange="changeDhikrOption()"
+          style="width:100%; margin-top:6px; padding:10px 12px; border-radius:12px; background:var(--surface-2); color:var(--text); border:1px solid var(--border); font-size:0.92rem; font-weight:700;">
+        </select>
+
+        <div class="tasbih-display">
+          <div id="activeDhikrText" class="tasbih-phrase">سبحان الله وبحمده</div>
+          <div id="tasbihCount" class="tasbih-count">0</div>
+          <button class="tap-circle" onclick="incrementTasbih()">سبّح (+1)</button>
+          <div class="btn-row" style="justify-content:center; margin-top:12px;">
+            <button class="btn btn-secondary" onclick="resetTasbih()">تصفير العداد</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2 class="card-title">أذكار الصباح والمساء</h2>
+        </div>
+
+        <div class="tabs-switch">
+          <button id="morningTabBtn" class="chip-btn active" onclick="switchAzkarMode('morning')">
+            أذكار الصباح
+          </button>
+          <button id="eveningTabBtn" class="chip-btn" onclick="switchAzkarMode('evening')">
+            أذكار المساء
+          </button>
+        </div>
+
+        <div id="azkarListContainer"></div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-btn active" onclick="openPage('channel', this)">
+      <span>القناة</span>
+    </button>
+    <button class="nav-btn" onclick="openPage('facts', this)">
+      <span>معلومات</span>
+    </button>
+    <button class="nav-btn" onclick="openPage('quiz', this)">
+      <span>اختبار</span>
+    </button>
+    <button class="nav-btn" onclick="openPage('tasbih', this)">
+      <span>مسبحة وأذكار</span>
+    </button>
+  </nav>
+
+  <script>
+    /* =====================================================================
+       قسم التعديل السريع: عدّل الروابط والأسئلة والمعلومات والأذكار هنا متى شئت
+       ===================================================================== */
+
+    // 1. روابط المالك الثابتة (لا يمكن للزوار تعديلها من الواجهة)
+    const OWNER_LINKS = {
+      youtubeChannel: "https://www.youtube.com/@Islam-2911",
+      youtubeLatestVideoEmbed: "", // مثال: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      instagramProfile: "https://www.instagram.com/islamofficial7238?knvt=MWllZHYxNW01NHZsbQ=="
+    };
+
+    // 2. بنك المعلومات الدينية (أضف أو عدّل أو احذف كما تحب)
+    const ISLAMIC_FACTS = [
+      {
+        category: "القرآن والذكر",
+        text: "﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾ — الذكر المستمر يمنح القلب سكينةً وثباتاً وسط انشغالات الحياة."
+      },
+      {
+        category: "طلب العلم",
+        text: "الحرص على تعلم مسألة نافعة كل يوم والعمل بها يبني علماً راسخاً وبركةً في الوقت."
+      },
+      {
+        category: "الأخلاق والسيرة",
+        text: "الكلمة الطيبة وحسن الخلق والرفق بالناس من أعظم القربات التي تقرّب العبد إلى الله وتحبّبه إلى خلقه."
+      }
+    ];
+
+    // 3. بنك الأسئلة المتنوعة (أضف أسئلة جديدة في أي وقت لتنويع الاختبار)
+    const QUIZ_BANK = [
+      {
+        category: "القرآن الكريم",
+        question: "ما السورة التي تُعدل ثلث القرآن كما ورد في الحديث الصحيح؟",
+        options: ["سورة الفاتحة", "سورة الإخلاص", "سورة الملك", "سورة يس"],
+        correctIndex: 1,
+        explanation: "سورة الإخلاص (قُلْ هُوَ اللَّهُ أَحَدٌ) تعدل ثلث القرآن في المعنى والفضل."
+      },
+      {
+        category: "أركان الإسلام",
+        question: "كم عدد الصلوات المفروضة في اليوم والليلة؟",
+        options: ["ثلاث صلوات", "أربع صلوات", "خمس صلوات", "ست صلوات"],
+        correctIndex: 2,
+        explanation: "الصلوات المفروضة خمس صلوات في اليوم والليلة: الفجر، الظهر، العصر، المغرب، والعشاء."
+      },
+      {
+        category: "السيرة النبوية",
+        question: "أين اختبأ النبي ﷺ وأبو بكر الصديق رضي الله عنه أثناء الهجرة إلى المدينة؟",
+        options: ["غار حراء", "غار ثور", "جبل أحد", "شعب أبي طالب"],
+        correctIndex: 1,
+        explanation: "مكث النبي ﷺ وصاحبه أبو بكر في غار ثور جنوب مكة ثلاثة أيام أثناء الهجرة."
+      },
+      {
+        category: "العبادات",
+        question: "ما الذكر الذي يُقال عند بداية الطعام؟",
+        options: ["الحمد لله", "بسم الله", "سبحان الله", "الله أكبر"],
+        correctIndex: 1,
+        explanation: "يُسن قول (بسم الله) عند أول الطعام، و(الحمد لله) بعد الفراغ منه."
+      },
+      {
+        category: "فضائل وأذكار",
+        question: "ما الكلمتان الخفيفتان على اللسان، الثقيلتان في الميزان، الحبيبتان إلى الرحمن؟",
+        options: [
+          "لا حول ولا قوة إلا بالله",
+          "سبحان الله وبحمده، سبحان الله العظيم",
+          "أستغفر الله وأتوب إليه",
+          "لا إله إلا الله وحده"
+        ],
+        correctIndex: 1,
+        explanation: "ورد في الحديث الصحيح: «كلمتان خفيفتان على اللسان، ثقيلتان في الميزان، حبيبتان إلى الرحمن: سبحان الله وبحمده، سبحان الله العظيم»."
+      }
+    ];
+
+    // 4. خيارات المسبحة الإلكترونية (الذكر والعدد المستهدف)
+    const TASBIH_OPTIONS = [
+      { label: "سبحان الله وبحمده (33)", phrase: "سبحان الله وبحمده", goal: 33 },
+      { label: "سبحان الله (33)", phrase: "سبحان الله", goal: 33 },
+      { label: "الحمد لله (33)", phrase: "الحمد لله", goal: 33 },
+      { label: "الله أكبر (34)", phrase: "الله أكبر", goal: 34 },
+      { label: "أستغفر الله العظيم (100)", phrase: "أستغفر الله العظيم", goal: 100 },
+      { label: "لا إله إلا الله وحده لا شريك له (100)", phrase: "لا إله إلا الله وحده لا شريك له", goal: 100 },
+      { label: "اللهم صلِّ وسلم على نبينا محمد (10)", phrase: "اللهم صلِّ وسلم على نبينا محمد", goal: 10 }
+    ];
+
+    // 5. أذكار الصباح والمساء (يمكنك إضافة أو تعديل أي ذكر بسهولة)
+    const AZKAR_DATA = {
+      morning: [
+        {
+          title: "سيد الاستغفار",
+          count: 1,
+          text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.",
+          note: "يُقال صباحاً ومساءً بيقين."
+        },
+        {
+          title: "ذكر الصباح بالله",
+          count: 1,
+          text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.",
+          note: "من أذكار الصباح المأثورة."
+        },
+        {
+          title: "الرضى بالله ديناً ونبياً",
+          count: 3,
+          text: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ ﷺ نَبِيًّا.",
+          note: "يُكرر ثلاث مرات صباحاً ومساءً."
+        },
+        {
+          title: "العافية في الدنيا والآخرة",
+          count: 3,
+          text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ.",
+          note: "يُكرر ثلاث مرات صباحاً ومساءً."
+        }
+      ],
+      evening: [
+        {
+          title: "ذكر المساء بالله",
+          count: 1,
+          text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.",
+          note: "من أذكار المساء المأثورة."
+        },
+        {
+          title: "سيد الاستغفار",
+          count: 1,
+          text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.",
+          note: "يُقال صباحاً ومساءً بيقين."
+        },
+        {
+          title: "التعوذ بكلمات الله التامات",
+          count: 3,
+          text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ.",
+          note: "يُكرر ثلاث مرات مساءً."
+        },
+        {
+          title: "الرضى بالله ديناً ونبياً",
+          count: 3,
+          text: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ ﷺ نَبِيًّا.",
+          note: "يُكرر ثلاث مرات صباحاً ومساءً."
+        }
+      ]
+    };
+
+    /* =====================================================================
+       منطق تشغيل التطبيق وحفظ الحالة محلياً
+       ===================================================================== */
+
+    function initOwnerLinks() {
+      document.getElementById("ytBtn").href = OWNER_LINKS.youtubeChannel;
+      document.getElementById("igBtn").href = OWNER_LINKS.instagramProfile;
+
+      const videoContainer = document.getElementById("videoContainer");
+      if (OWNER_LINKS.youtubeLatestVideoEmbed && OWNER_LINKS.youtubeLatestVideoEmbed.trim() !== "") {
+        videoContainer.innerHTML = `
+          <div class="video-frame-wrap">
+            <iframe
+              src="${OWNER_LINKS.youtubeLatestVideoEmbed}"
+              title="فيديو القناة"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+        `;
+      } else {
+        videoContainer.innerHTML = `
+          <p class="muted" style="margin-top:12px;">
+            يمكنك وضع رابط تضمين أحدث فيديو داخل <code>youtubeLatestVideoEmbed</code> ليظهر مشغّل الفيديو مباشرة هنا.
+          </p>
+        `;
+      }
+    }
+
+    function openPage(pageId, btnEl) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById(pageId).classList.add("active");
+      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+      if (btnEl) btnEl.classList.add("active");
+    }
+
+    // المعلومات الدينية
+    let factIdx = 0;
+    function renderFact() {
+      if (!ISLAMIC_FACTS.length) return;
+      const item = ISLAMIC_FACTS[factIdx];
+      document.getElementById("factCategory").textContent = item.category;
+      document.getElementById("factContent").textContent = item.text;
+      document.getElementById("factCounter").textContent = `${factIdx + 1} / ${ISLAMIC_FACTS.length}`;
+    }
+
+    function nextFact() {
+      if (!ISLAMIC_FACTS.length) return;
+      factIdx = (factIdx + 1) % ISLAMIC_FACTS.length;
+      renderFact();
+    }
+
+    async function shareFact() {
+      const item = ISLAMIC_FACTS[factIdx];
+      if (!item) return;
+      const shareText = `الإسلام | Islam — ${item.category}\n${item.text}`;
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: "الإسلام | Islam", text: shareText });
+          return;
+        } catch (_) {}
+      }
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(shareText);
+        alert("تم نسخ الفائدة إلى الحافظة.");
+      }
+    }
+
+    // الاختبار المتنوع
+    let quizScore = Number(localStorage.getItem("islam_quiz_score") || "0");
+    let lastQuestionIdx = -1;
+
+    function updateScoreBadge() {
+      document.getElementById("scoreBadge").textContent = `النقاط: ${quizScore}`;
+      localStorage.setItem("islam_quiz_score", String(quizScore));
+    }
+
+    function pickRandomQuestion() {
+      if (!QUIZ_BANK.length) return;
+      let idx;
+      do {
+        idx = Math.floor(Math.random() * QUIZ_BANK.length);
+      } while (idx === lastQuestionIdx && QUIZ_BANK.length > 1);
+      lastQuestionIdx = idx;
+
+      const q = QUIZ_BANK[idx];
+      document.getElementById("questionCategory").textContent = `التصنيف: ${q.category}`;
+      document.getElementById("questionNumber").textContent = `بنك الأسئلة (${QUIZ_BANK.length})`;
+      document.getElementById("questionTitle").textContent = q.question;
+
+      const expBox = document.getElementById("explanationBox");
+      expBox.style.display = "none";
+      expBox.textContent = "";
+
+      const optsBox = document.getElementById("optionsContainer");
+      optsBox.innerHTML = "";
+
+      q.options.forEach((optText, i) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = optText;
+        btn.onclick = () => evaluateAnswer(i, q.correctIndex, q.explanation, btn);
+        optsBox.appendChild(btn);
+      });
+    }
+
+    function evaluateAnswer(selectedIdx, correctIdx, explanation, btnEl) {
+      const buttons = document.querySelectorAll("#optionsContainer .option-btn");
+      buttons.forEach(b => (b.disabled = true));
+
+      const expBox = document.getElementById("explanationBox");
+      expBox.style.display = "block";
+
+      if (selectedIdx === correctIdx) {
+        btnEl.classList.add("correct");
+        quizScore += 1;
+        updateScoreBadge();
+        expBox.textContent = `أحسنت، إجابة صحيحة. ${explanation}`;
+      } else {
+        btnEl.classList.add("wrong");
+        buttons[correctIdx].classList.add("correct");
+        expBox.textContent = `إجابة غير صحيحة. الصواب: «${buttons[correctIdx].textContent}». ${explanation}`;
+      }
+    }
+
+    function resetScore() {
+      quizScore = 0;
+      updateScoreBadge();
+    }
+
+    // المسبحة وأذكار الصباح والمساء
+    let selectedTasbihIdx = Number(localStorage.getItem("islam_tasbih_idx") || "0");
+    let tasbihCounts = JSON.parse(localStorage.getItem("islam_tasbih_counts") || "{}");
+    let currentAzkarMode = "morning";
+    let azkarProgress = JSON.parse(localStorage.getItem("islam_azkar_progress") || "{}");
+
+    function initTasbihSelect() {
+      const select = document.getElementById("dhikrSelect");
+      select.innerHTML = "";
+      TASBIH_OPTIONS.forEach((item, idx) => {
+        const opt = document.createElement("option");
+        opt.value = idx;
+        opt.textContent = item.label;
+        select.appendChild(opt);
+      });
+      if (selectedTasbihIdx >= TASBIH_OPTIONS.length) selectedTasbihIdx = 0;
+      select.value = String(selectedTasbihIdx);
+      renderTasbih();
+    }
+
+    function renderTasbih() {
+      const current = TASBIH_OPTIONS[selectedTasbihIdx];
+      const count = Number(tasbihCounts[selectedTasbihIdx] || 0);
+      document.getElementById("activeDhikrText").textContent = current.phrase;
+      document.getElementById("tasbihGoalLabel").textContent = `الهدف: ${current.goal}`;
+      document.getElementById("tasbihCount").textContent = String(count);
+      localStorage.setItem("islam_tasbih_idx", String(selectedTasbihIdx));
+      localStorage.setItem("islam_tasbih_counts", JSON.stringify(tasbihCounts));
+    }
+
+    function changeDhikrOption() {
+      selectedTasbihIdx = Number(document.getElementById("dhikrSelect").value);
+      renderTasbih();
+    }
+
+    function incrementTasbih() {
+      const prev = Number(tasbihCounts[selectedTasbihIdx] || 0);
+      tasbihCounts[selectedTasbihIdx] = prev + 1;
+      renderTasbih();
+    }
+
+    function resetTasbih() {
+      tasbihCounts[selectedTasbihIdx] = 0;
+      renderTasbih();
+    }
+
+    function switchAzkarMode(mode) {
+      currentAzkarMode = mode;
+      document.getElementById("morningTabBtn").classList.toggle("active", mode === "morning");
+      document.getElementById("eveningTabBtn").classList.toggle("active", mode === "evening");
+      renderAzkarList();
+    }
+
+    function renderAzkarList() {
+      const container = document.getElementById("azkarListContainer");
+      const list = AZKAR_DATA[currentAzkarMode] || [];
+      container.innerHTML = "";
+
+      list.forEach((zekr, idx) => {
+        const key = `${currentAzkarMode}_${idx}`;
+        const doneCount = Number(azkarProgress[key] || 0);
+        const completed = doneCount >= zekr.count;
+
+        const card = document.createElement("div");
+        card.className = "zekr-item";
+        card.innerHTML = `
+          <div class="zekr-top">
+            <span>${zekr.title}</span>
+            <span>${doneCount} / ${zekr.count} ${completed ? "✓" : ""}</span>
+          </div>
+          <p class="zekr-body">${zekr.text}</p>
+          <div class="zekr-note">${zekr.note}</div>
+          <div class="btn-row" style="margin-top:6px;">
+            <button class="btn btn-primary" onclick="countZekr('${key}', ${zekr.count})">
+              عدّ الذكر (+1)
+            </button>
+            <button class="btn btn-secondary" onclick="resetSingleZekr('${key}')">
+              إعادة
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function countZekr(key, target) {
+      const current = Number(azkarProgress[key] || 0);
+      if (current < target) {
+        azkarProgress[key] = current + 1;
+        localStorage.setItem("islam_azkar_progress", JSON.stringify(azkarProgress));
+        renderAzkarList();
+      }
+    }
+
+    function resetSingleZekr(key) {
+      azkarProgress[key] = 0;
+      localStorage.setItem("islam_azkar_progress", JSON.stringify(azkarProgress));
+      renderAzkarList();
+    }
+
+    // تشغيل التهيئة الأولية
+    initOwnerLinks();
+    renderFact();
+    updateScoreBadge();
+    pickRandomQuestion();
+    initTasbihSelect();
+    renderAzkarList();
+  </script>
+</body>
+</html>
